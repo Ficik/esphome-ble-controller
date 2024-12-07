@@ -12,11 +12,11 @@ namespace esp32_ble_controller {
 
 static const char *TAG = "ble_component_handler_base";
 
-BLEComponentHandlerBase::BLEComponentHandlerBase(EntityBase* component, const BLECharacteristicInfoForHandler& characteristic_info) 
+BLEComponentHandlerBase::BLEComponentHandlerBase(EntityBase* component, const BLECharacteristicInfoForHandler& characteristic_info)
   : component(component), characteristic_info(characteristic_info)
 {}
 
-BLEComponentHandlerBase::~BLEComponentHandlerBase() 
+BLEComponentHandlerBase::~BLEComponentHandlerBase()
 {}
 
 void BLEComponentHandlerBase::setup(BLEServer* ble_server) {
@@ -28,7 +28,7 @@ void BLEComponentHandlerBase::setup(BLEServer* ble_server) {
   const string& service_UUID = characteristic_info.service_UUID;
   BLEService* service = ble_server->getServiceByUUID(service_UUID);
   if (service == nullptr) {
-    service = ble_server->createService(service_UUID);
+    service = ble_server->createService(BLEUUID(service_UUID), 64, 0);
   }
 
   // Create the BLE characteristic.
