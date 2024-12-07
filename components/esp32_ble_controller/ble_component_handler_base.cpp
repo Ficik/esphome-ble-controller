@@ -29,6 +29,7 @@ void BLEComponentHandlerBase::setup(BLEServer* ble_server) {
   BLEService* service = ble_server->getServiceByUUID(service_UUID);
   if (service == nullptr) {
     service = ble_server->createService(BLEUUID(service_UUID), 64, 0);
+    ble_server->getAdvertising()->addServiceUUID(service->getUUID());
   }
 
   // Create the BLE characteristic.
